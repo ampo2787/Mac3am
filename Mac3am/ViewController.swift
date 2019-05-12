@@ -21,7 +21,12 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        let vcStores = self.storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("player"))
+            as! NSViewController
+        self.view.window?.contentViewController = vcStores
+    }
 
 }
 

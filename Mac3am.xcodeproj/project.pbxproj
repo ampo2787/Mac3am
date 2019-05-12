@@ -11,6 +11,13 @@
 		7AB831782286AC47009FC41B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831772286AC47009FC41B /* ViewController.swift */; };
 		7AB8317A2286AC49009FC41B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB831792286AC49009FC41B /* Assets.xcassets */; };
 		7AB8317D2286AC49009FC41B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8317B2286AC49009FC41B /* Main.storyboard */; };
+		7AB831892286BB5E009FC41B /* Mac3am-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB831882286BB5E009FC41B /* Mac3am-logo.png */; };
+		7AB831912287FADD009FC41B /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8318C2287FADC009FC41B /* back.png */; };
+		7AB831922287FADD009FC41B /* forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8318D2287FADC009FC41B /* forward.png */; };
+		7AB831932287FADD009FC41B /* multimedia.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8318E2287FADC009FC41B /* multimedia.png */; };
+		7AB831942287FADD009FC41B /* back (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8318F2287FADC009FC41B /* back (1).png */; };
+		7AB831952287FADD009FC41B /* forward (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB831902287FADC009FC41B /* forward (1).png */; };
+		7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831962287FF84009FC41B /* MainWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +28,13 @@
 		7AB8317C2286AC49009FC41B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7AB8317E2286AC49009FC41B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AB8317F2286AC49009FC41B /* Mac3am.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mac3am.entitlements; sourceTree = "<group>"; };
+		7AB831882286BB5E009FC41B /* Mac3am-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mac3am-logo.png"; sourceTree = "<group>"; };
+		7AB8318C2287FADC009FC41B /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		7AB8318D2287FADC009FC41B /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forward.png; sourceTree = "<group>"; };
+		7AB8318E2287FADC009FC41B /* multimedia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = multimedia.png; sourceTree = "<group>"; };
+		7AB8318F2287FADC009FC41B /* back (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back (1).png"; sourceTree = "<group>"; };
+		7AB831902287FADC009FC41B /* forward (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward (1).png"; sourceTree = "<group>"; };
+		7AB831962287FF84009FC41B /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,14 +67,29 @@
 		7AB831742286AC47009FC41B /* Mac3am */ = {
 			isa = PBXGroup;
 			children = (
+				7AB831852286BAA0009FC41B /* Source */,
 				7AB831752286AC47009FC41B /* AppDelegate.swift */,
 				7AB831772286AC47009FC41B /* ViewController.swift */,
 				7AB831792286AC49009FC41B /* Assets.xcassets */,
 				7AB8317B2286AC49009FC41B /* Main.storyboard */,
 				7AB8317E2286AC49009FC41B /* Info.plist */,
 				7AB8317F2286AC49009FC41B /* Mac3am.entitlements */,
+				7AB831962287FF84009FC41B /* MainWindowController.swift */,
 			);
 			path = Mac3am;
+			sourceTree = "<group>";
+		};
+		7AB831852286BAA0009FC41B /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				7AB8318F2287FADC009FC41B /* back (1).png */,
+				7AB8318C2287FADC009FC41B /* back.png */,
+				7AB831902287FADC009FC41B /* forward (1).png */,
+				7AB8318D2287FADC009FC41B /* forward.png */,
+				7AB8318E2287FADC009FC41B /* multimedia.png */,
+				7AB831882286BB5E009FC41B /* Mac3am-logo.png */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -121,8 +150,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AB831932287FADD009FC41B /* multimedia.png in Resources */,
+				7AB831942287FADD009FC41B /* back (1).png in Resources */,
+				7AB831912287FADD009FC41B /* back.png in Resources */,
 				7AB8317A2286AC49009FC41B /* Assets.xcassets in Resources */,
+				7AB831922287FADD009FC41B /* forward.png in Resources */,
 				7AB8317D2286AC49009FC41B /* Main.storyboard in Resources */,
+				7AB831952287FADD009FC41B /* forward (1).png in Resources */,
+				7AB831892286BB5E009FC41B /* Mac3am-logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +170,7 @@
 			files = (
 				7AB831782286AC47009FC41B /* ViewController.swift in Sources */,
 				7AB831762286AC47009FC41B /* AppDelegate.swift in Sources */,
+				7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
