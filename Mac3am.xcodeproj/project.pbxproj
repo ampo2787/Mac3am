@@ -18,6 +18,12 @@
 		7AB831942287FADD009FC41B /* back (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8318F2287FADC009FC41B /* back (1).png */; };
 		7AB831952287FADD009FC41B /* forward (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB831902287FADC009FC41B /* forward (1).png */; };
 		7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831962287FF84009FC41B /* MainWindowController.swift */; };
+		949A19E02299420500F26995 /* crotchet.png in Resources */ = {isa = PBXBuildFile; fileRef = 949A19DF2299420500F26995 /* crotchet.png */; };
+		949A19E4229957F400F26995 /* forward-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 949A19E1229957F300F26995 /* forward-2.png */; };
+		949A19E5229957F400F26995 /* backward-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 949A19E2229957F400F26995 /* backward-3.png */; };
+		949A19E6229957F400F26995 /* play-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 949A19E3229957F400F26995 /* play-2.png */; };
+		949A19E822995A4300F26995 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949A19E722995A4300F26995 /* PlayViewController.swift */; };
+		949A19EA229A53CE00F26995 /* logging-out-2355227_1280.png in Resources */ = {isa = PBXBuildFile; fileRef = 949A19E9229A53CD00F26995 /* logging-out-2355227_1280.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +41,12 @@
 		7AB8318F2287FADC009FC41B /* back (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back (1).png"; sourceTree = "<group>"; };
 		7AB831902287FADC009FC41B /* forward (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward (1).png"; sourceTree = "<group>"; };
 		7AB831962287FF84009FC41B /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		949A19DF2299420500F26995 /* crotchet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crotchet.png; sourceTree = "<group>"; };
+		949A19E1229957F300F26995 /* forward-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward-2.png"; sourceTree = "<group>"; };
+		949A19E2229957F400F26995 /* backward-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backward-3.png"; sourceTree = "<group>"; };
+		949A19E3229957F400F26995 /* play-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-2.png"; sourceTree = "<group>"; };
+		949A19E722995A4300F26995 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
+		949A19E9229A53CD00F26995 /* logging-out-2355227_1280.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logging-out-2355227_1280.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +82,7 @@
 				7AB831852286BAA0009FC41B /* Source */,
 				7AB831752286AC47009FC41B /* AppDelegate.swift */,
 				7AB831772286AC47009FC41B /* ViewController.swift */,
+				949A19E722995A4300F26995 /* PlayViewController.swift */,
 				7AB831792286AC49009FC41B /* Assets.xcassets */,
 				7AB8317B2286AC49009FC41B /* Main.storyboard */,
 				7AB8317E2286AC49009FC41B /* Info.plist */,
@@ -82,6 +95,11 @@
 		7AB831852286BAA0009FC41B /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				949A19E9229A53CD00F26995 /* logging-out-2355227_1280.png */,
+				949A19E2229957F400F26995 /* backward-3.png */,
+				949A19E1229957F300F26995 /* forward-2.png */,
+				949A19E3229957F400F26995 /* play-2.png */,
+				949A19DF2299420500F26995 /* crotchet.png */,
 				7AB8318F2287FADC009FC41B /* back (1).png */,
 				7AB8318C2287FADC009FC41B /* back.png */,
 				7AB831902287FADC009FC41B /* forward (1).png */,
@@ -152,12 +170,17 @@
 			files = (
 				7AB831932287FADD009FC41B /* multimedia.png in Resources */,
 				7AB831942287FADD009FC41B /* back (1).png in Resources */,
+				949A19E4229957F400F26995 /* forward-2.png in Resources */,
 				7AB831912287FADD009FC41B /* back.png in Resources */,
 				7AB8317A2286AC49009FC41B /* Assets.xcassets in Resources */,
 				7AB831922287FADD009FC41B /* forward.png in Resources */,
 				7AB8317D2286AC49009FC41B /* Main.storyboard in Resources */,
+				949A19E5229957F400F26995 /* backward-3.png in Resources */,
 				7AB831952287FADD009FC41B /* forward (1).png in Resources */,
 				7AB831892286BB5E009FC41B /* Mac3am-logo.png in Resources */,
+				949A19E6229957F400F26995 /* play-2.png in Resources */,
+				949A19E02299420500F26995 /* crotchet.png in Resources */,
+				949A19EA229A53CE00F26995 /* logging-out-2355227_1280.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949A19E822995A4300F26995 /* PlayViewController.swift in Sources */,
 				7AB831782286AC47009FC41B /* ViewController.swift in Sources */,
 				7AB831762286AC47009FC41B /* AppDelegate.swift in Sources */,
 				7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */,
@@ -310,7 +334,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mac3am/Mac3am.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = Z73D4U4HW8;
+				DEVELOPMENT_TEAM = CABGRV2TPN;
 				INFOPLIST_FILE = Mac3am/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -329,7 +353,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mac3am/Mac3am.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = Z73D4U4HW8;
+				DEVELOPMENT_TEAM = CABGRV2TPN;
 				INFOPLIST_FILE = Mac3am/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

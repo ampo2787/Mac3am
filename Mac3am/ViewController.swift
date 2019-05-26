@@ -9,7 +9,7 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,8 +24,12 @@ class ViewController: NSViewController {
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         let vcStores = self.storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("player"))
-            as! NSViewController
+           as! PlayViewController
+        
+        //let vcStores = PlayViewController()
         self.view.window?.contentViewController = vcStores
+        self.view.window?.contentView = vcStores.view
+        self.view.window?.contentView?.display()
     }
 
 }
