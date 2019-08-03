@@ -7,9 +7,14 @@
 //
 
 import Cocoa
+import AppAuth
 
 @NSApplicationMain
+
+
 class AppDelegate: NSObject, NSApplicationDelegate{
+    
+    weak var currentAuthorizationFlow:OIDExternalUserAgentSession!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
