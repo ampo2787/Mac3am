@@ -1,7 +1,7 @@
-/*! @file GTMAppAuth.h
-    @brief GTMAppAuth SDK
+/*! @file OIDExternalUserAgentMac.h
+    @brief AppAuth iOS SDK
     @copyright
-        Copyright 2016 Google Inc.
+        Copyright 2016 Google Inc. All Rights Reserved.
     @copydetails
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
@@ -16,18 +16,15 @@
         limitations under the License.
  */
 
-#import "GTMAppAuthFetcherAuthorization.h"
-#import "GTMAppAuthFetcherAuthorization+Keychain.h"
-#import "GTMTVAuthorizationRequest.h"
-#import "GTMTVAuthorizationResponse.h"
-#import "GTMTVAuthorizationService.h"
+#import "OIDExternalUserAgent.h"
 
-#if TARGET_OS_TV
-#elif TARGET_OS_WATCH
-#elif TARGET_OS_IOS
-#import "GTMOAuth2KeychainCompatibility.h"
-#elif TARGET_OS_MAC
-#import "GTMOAuth2KeychainCompatibility.h"
-#else
-#warn "Platform Undefined"
-#endif
+NS_ASSUME_NONNULL_BEGIN
+
+/*! @brief A Mac-specific external user-agent UI Coordinator that uses the default browser to
+        present an external user-agent request.
+ */
+@interface OIDExternalUserAgentMac : NSObject <OIDExternalUserAgent>
+
+@end
+
+NS_ASSUME_NONNULL_END

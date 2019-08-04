@@ -11,13 +11,19 @@ import AppAuth
 
 @NSApplicationMain
 
-
 class AppDelegate: NSObject, NSApplicationDelegate{
-    
-    weak var currentAuthorizationFlow:OIDExternalUserAgentSession!
+    var currentAuthorizationFlow: OIDExternalUserAgentSession?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        let appleEventManager = NSAppleEventManager.shared()
+        
+        appleEventManager.setEventHandler(self, andSelector:#selector(handleGetURLEvent(event:replyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+    }
+    
+    @objc func handleGetURLEvent(event:NSAppleEventDescriptor, replyEvent:NSAppleEventDescriptor) {
+        let URLString = event.paramDescriptor(forKeyword: keyDirectObject)?.stringValue
+        let URL = NSURL.init(string: URLString!)
+        currentAuthorizationFlow!.resumeExternalUserAgentFlow(with: URL as URL?)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

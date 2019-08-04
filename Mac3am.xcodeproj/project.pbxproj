@@ -21,7 +21,6 @@
 		7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831962287FF84009FC41B /* MainWindowController.swift */; };
 		7AE3F69D229A772A00CF8AFC /* KakaoTalk_Photo_2019-05-26-16-25-45.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE3F69C229A772A00CF8AFC /* KakaoTalk_Photo_2019-05-26-16-25-45.png */; };
 		7AE3F69F229A779000CF8AFC /* music.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE3F69E229A779000CF8AFC /* music.png */; };
-		7AFCDEE322F5748500B2F515 /* YoutubeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFCDEE222F5748500B2F515 /* YoutubeAPI.swift */; };
 		949A19E02299420500F26995 /* crotchet.png in Resources */ = {isa = PBXBuildFile; fileRef = 949A19DF2299420500F26995 /* crotchet.png */; };
 		949A19E4229957F400F26995 /* forward-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 949A19E1229957F300F26995 /* forward-2.png */; };
 		949A19E5229957F400F26995 /* backward-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 949A19E2229957F400F26995 /* backward-3.png */; };
@@ -49,7 +48,6 @@
 		7AB831962287FF84009FC41B /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		7AE3F69C229A772A00CF8AFC /* KakaoTalk_Photo_2019-05-26-16-25-45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KakaoTalk_Photo_2019-05-26-16-25-45.png"; sourceTree = "<group>"; };
 		7AE3F69E229A779000CF8AFC /* music.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = music.png; sourceTree = "<group>"; };
-		7AFCDEE222F5748500B2F515 /* YoutubeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeAPI.swift; sourceTree = "<group>"; };
 		949A19DF2299420500F26995 /* crotchet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crotchet.png; sourceTree = "<group>"; };
 		949A19E1229957F300F26995 /* forward-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward-2.png"; sourceTree = "<group>"; };
 		949A19E2229957F400F26995 /* backward-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backward-3.png"; sourceTree = "<group>"; };
@@ -144,7 +142,6 @@
 		7AFCDEDF22F5742700B2F515 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7AFCDEE222F5748500B2F515 /* YoutubeAPI.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,6 +198,15 @@
 				TargetAttributes = {
 					7AB831712286AC47009FC41B = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1030;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 0;
+							};
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -296,7 +302,6 @@
 			files = (
 				949A19E822995A4300F26995 /* PlayViewController.swift in Sources */,
 				7AB831782286AC47009FC41B /* LoginViewController.swift in Sources */,
-				7AFCDEE322F5748500B2F515 /* YoutubeAPI.swift in Sources */,
 				7AB831762286AC47009FC41B /* AppDelegate.swift in Sources */,
 				7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */,
 			);
@@ -436,6 +441,7 @@
 			baseConfigurationReference = 16A07FE613813911499D5050 /* Pods-Mac3am.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mac3am/Mac3am.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -447,6 +453,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Mac3am.Motion.Mac3am;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -456,6 +463,7 @@
 			baseConfigurationReference = 311D8FC23B8A6991A0D4EFA3 /* Pods-Mac3am.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mac3am/Mac3am.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

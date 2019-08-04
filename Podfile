@@ -4,7 +4,7 @@
 target 'Mac3am' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-pod 'GTMAppAuth'
+pod 'AppAuth'
   # Pods for Mac3am
 
 end
