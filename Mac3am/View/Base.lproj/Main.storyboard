@@ -893,14 +893,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="769" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7k3-ik-1qn">
-                                        <rect key="frame" x="360" y="11" width="48" height="48"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play-2" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="fVp-Zh-mF8">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                    </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Whl-2Y-yqp">
                                         <rect key="frame" x="145" y="11" width="48" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -908,6 +900,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="previousBtnTouched:" target="ssO-qL-BrX" id="euJ-zK-eUI"/>
+                                        </connections>
                                     </button>
                                     <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="DRa-y0-zDZ">
                                         <rect key="frame" x="0.0" y="60" width="769" height="20"/>
@@ -920,6 +915,20 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="skipBtnTouched:" target="ssO-qL-BrX" id="48Z-VM-OSv"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7k3-ik-1qn">
+                                        <rect key="frame" x="360" y="11" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play-2" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="fVp-Zh-mF8">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="playBtnTouched:" target="ssO-qL-BrX" id="hcE-gX-1ZI"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </customView>
@@ -931,7 +940,12 @@
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="albumArtView" destination="91H-rS-07d" id="Mw2-TU-Tmi"/>
                         <outlet property="botton_View" destination="eyj-Vs-5si" id="KLW-96-xUu"/>
+                        <outlet property="playBtn" destination="7k3-ik-1qn" id="VWj-MC-Rl5"/>
+                        <outlet property="playTimeIndicator" destination="DRa-y0-zDZ" id="a2L-hi-pip"/>
+                        <outlet property="previousBtn" destination="Whl-2Y-yqp" id="mfY-bV-3Xv"/>
+                        <outlet property="skipBtn" destination="6FV-51-LsC" id="fvm-fa-8ec"/>
                         <outlet property="tableView" destination="4BT-O6-RNn" id="wLb-sj-X0S"/>
                         <outlet property="userInfoTextField" destination="Xsv-bS-Lch" id="KIB-NY-1D2"/>
                     </connections>
@@ -945,10 +959,10 @@
         <image name="KakaoTalk_Photo_2019-05-26-16-25-45" width="452" height="395"/>
         <image name="Mac3am-logo" width="400" height="342"/>
         <image name="NSActionTemplate" width="14" height="14"/>
-        <image name="backward-3" width="409.60000610351562" height="409.60000610351562"/>
-        <image name="forward-2" width="409.60000610351562" height="409.60000610351562"/>
+        <image name="backward-3" width="512" height="512"/>
+        <image name="forward-2" width="512" height="512"/>
         <image name="logging-out-2355227_1280" width="1280" height="1280"/>
-        <image name="music" width="1280" height="800"/>
-        <image name="play-2" width="409.60000610351562" height="409.60000610351562"/>
+        <image name="music" width="2560" height="1600"/>
+        <image name="play-2" width="512" height="512"/>
     </resources>
 </document>
