@@ -9,46 +9,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mac3am/Controller/LoginViewController.swift"
-            timestampString = "586604829.826948"
+            filePath = "Mac3am/AppDelegate.swift"
+            timestampString = "587209005.348348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "authorize()"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "handleGetURLEvent(event:replyEvent:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.OIDServiceConfiguration&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Mac3am.LoginViewController.authorize() -&gt; ()"
-                  moduleName = "Mac3am"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jihoonpark/Desktop/XcodeProject/Mac3am/Mac3am/Controller/LoginViewController.swift"
-                  timestampString = "586604830.081077"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "79"
-                  endingLineNumber = "79"
-                  offsetFromSymbolStart = "1434">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.OIDAuthState&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (Swift.Optional&lt;__C.OIDServiceConfiguration&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Mac3am.LoginViewController.authorize() -&gt; ()"
-                  moduleName = "Mac3am"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jihoonpark/Desktop/XcodeProject/Mac3am/Mac3am/Controller/LoginViewController.swift"
-                  timestampString = "586604830.082387"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "121">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

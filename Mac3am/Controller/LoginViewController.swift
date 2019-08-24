@@ -27,7 +27,6 @@ class LoginViewController: NSViewController, OIDAuthStateChangeDelegate, OIDAuth
     let kAuthorizerKey = "authorization"
     
     func didChange(_ state: OIDAuthState) {
-        
         do {
            let archivedAuthState = try NSKeyedArchiver.archivedData(withRootObject: authState, requiringSecureCoding: false)
             UserDefaults.standard.set(archivedAuthState, forKey: kAuthorizerKey)
@@ -38,6 +37,15 @@ class LoginViewController: NSViewController, OIDAuthStateChangeDelegate, OIDAuth
         
     }
     
+    func setAuthState(authState:OIDAuthState) {
+        if self.authState == authState {
+            return
+        }
+        self.authState = authState
+        self.authState.stateChangeDelegate = self
+        self.didChange(authState)
+    }
+    
     func authState(_ state: OIDAuthState, didEncounterAuthorizationError error: Error) {
         print("error")
     }
@@ -46,6 +54,7 @@ class LoginViewController: NSViewController, OIDAuthStateChangeDelegate, OIDAuth
         super.viewDidLoad()
         let successURL = NSURL.init(string: kSuccessURLString)
         self.redirectHTTPHandler = OIDRedirectHTTPHandler.init(successURL: successURL as URL?)
+//        self.loadState()
     }
 
     override var representedObject: Any? {
@@ -58,7 +67,7 @@ class LoginViewController: NSViewController, OIDAuthStateChangeDelegate, OIDAuth
         let vcStores = self.storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("player"))
            as! PlayViewController
         
-        self.authorize()
+//        self.authorize()
 //        let youtubeAPI : YoutubeAPI = YoutubeAPI()
 //        let authorizeTrue = youtubeAPI.authorize(controller: self, id: idField.stringValue, password: passwordField.stringValue)
             self.view.window?.contentViewController = vcStores
@@ -66,6 +75,12 @@ class LoginViewController: NSViewController, OIDAuthStateChangeDelegate, OIDAuth
             self.view.window?.contentView?.display()
             //let vcStores = PlayViewController()
         
+    }
+    
+    func loadState() {
+        let archivedAuthState = UserDefaults.standard.object(forKey: "authState")
+        let authState = NSKeyedUnarchiver.unarchiveObject(with: archivedAuthState as! Data)
+        self.setAuthState(authState: authState as! OIDAuthState)
     }
     
     func authorize() {
@@ -80,7 +95,8 @@ class LoginViewController: NSViewController, OIDAuthStateChangeDelegate, OIDAuth
                 
                     NSRunningApplication.current.activate(options: [.activateAllWindows, .activateIgnoringOtherApps])
                 
-                    if (authState != nil) {
+                    if let state = authState {
+                        self.setAuthState(authState: state)
                         print("success, Access Token : " + (authState?.lastTokenResponse?.accessToken)!)
                     }
                     else {

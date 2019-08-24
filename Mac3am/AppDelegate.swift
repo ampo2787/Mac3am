@@ -12,6 +12,7 @@ import AppAuth
 @NSApplicationMain
 
 class AppDelegate: NSObject, NSApplicationDelegate{
+    
     var currentAuthorizationFlow: OIDExternalUserAgentSession?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
