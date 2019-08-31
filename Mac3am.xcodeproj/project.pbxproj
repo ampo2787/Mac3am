@@ -13,6 +13,7 @@
 		7AB8317A2286AC49009FC41B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB831792286AC49009FC41B /* Assets.xcassets */; };
 		7AB8317D2286AC49009FC41B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8317B2286AC49009FC41B /* Main.storyboard */; };
 		7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831962287FF84009FC41B /* MainWindowController.swift */; };
+		7ACDDB9C2312593D006A0FE8 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7ACDDB9A2312593D006A0FE8 /* Model.xcdatamodeld */; };
 		949A19E822995A4300F26995 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949A19E722995A4300F26995 /* PlayViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		7AB8317E2286AC49009FC41B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AB8317F2286AC49009FC41B /* Mac3am.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mac3am.entitlements; sourceTree = "<group>"; };
 		7AB831962287FF84009FC41B /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		7ACDDB9B2312593D006A0FE8 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		949A19E722995A4300F26995 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		9688725D9A7850193793F72A /* Pods_Mac3am.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mac3am.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -95,6 +97,7 @@
 		7AFCDEDF22F5742700B2F515 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7ACDDB9A2312593D006A0FE8 /* Model.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -157,7 +160,7 @@
 								enabled = 0;
 							};
 							com.apple.Sandbox = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -242,6 +245,7 @@
 			files = (
 				949A19E822995A4300F26995 /* PlayViewController.swift in Sources */,
 				7AB831782286AC47009FC41B /* LoginViewController.swift in Sources */,
+				7ACDDB9C2312593D006A0FE8 /* Model.xcdatamodeld in Sources */,
 				7AB831762286AC47009FC41B /* AppDelegate.swift in Sources */,
 				7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */,
 			);
@@ -382,7 +386,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Mac3am/Mac3am.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z73D4U4HW8;
@@ -404,7 +407,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Mac3am/Mac3am.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z73D4U4HW8;
@@ -441,6 +443,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7ACDDB9A2312593D006A0FE8 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7ACDDB9B2312593D006A0FE8 /* Model.xcdatamodel */,
+			);
+			currentVersion = 7ACDDB9B2312593D006A0FE8 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7AB8316A2286AC47009FC41B /* Project object */;
 }

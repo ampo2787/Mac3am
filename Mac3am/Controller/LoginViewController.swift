@@ -82,7 +82,7 @@ class LoginViewController: NSViewController, OIDAuthStateChangeDelegate, OIDAuth
         let authState = NSKeyedUnarchiver.unarchiveObject(with: archivedAuthState as! Data)
         self.setAuthState(authState: authState as! OIDAuthState)
     }
-    
+    /*
     func authorize() {
         OIDAuthorizationService.discoverConfiguration(forIssuer: kIssuer as URL) { (configuration, error) in
             if configuration == nil {
@@ -107,5 +107,6 @@ class LoginViewController: NSViewController, OIDAuthStateChangeDelegate, OIDAuth
             }
         }
     }
+ */
 }
 

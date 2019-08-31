@@ -21,13 +21,22 @@ class PlayViewController: NSViewController {
     @IBOutlet weak var previousBtn: NSButton!
     @IBOutlet weak var skipBtn: NSButton!
     @IBOutlet weak var playTimeIndicator: NSProgressIndicator!
+    @IBOutlet weak var faceView: NSView!
     
     let fileManager = FileManager.default
-    var dataPath :URL! = URL.init(string: "")
+    var dataPath :URL! = URL.init(string: "/Users/\(NSUserName())/Documents/Mac3am Music")
     var musicList:[String]! = []
     var currentMusicIndex = 0
     var currentMusicPlayer = player
     var queue = DispatchQueue.init(label: "progress")
+    let appDelegate = NSApplication.shared.delegate as! AppDelegate
+    var context:NSManagedObjectContext! = nil
+    var entity:NSEntityDescription! = nil
+    
+    //video
+    var captureSession: AVCaptureSession!
+    var stillImageOutput: AVCaptureVideoDataOutput!
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +46,28 @@ class PlayViewController: NSViewController {
         self.playBtn.isEnabled = false
         self.playTimeIndicator.usesThreadedAnimation = true
         
-        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        dataPath = documentsDirectory.appendingPathComponent("Mac3am Music")
+        //core Data Setting
+        context = appDelegate.persistentContainer.viewContext
+        entity = NSEntityDescription.entity(forEntityName: "Entity", in: context)
+        
+        /* open power box and select folder code
+         
+        let openPanel = NSOpenPanel()
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseDirectories = false
+        openPanel.canCreateDirectories = false
+        openPanel.canChooseFiles = true
+        openPanel.begin { (result) -> Void in
+            if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
+                //Do what you will
+                //If there's only one URL, surely 'openPanel.URL'
+                //but otherwise a for loop works
+                let selectedPath = openPanel.url!.path
+            }
+            openPanel.close()
+        }
+        */
+        dataPath = URL.init(fileURLWithPath: "/Users/\(NSUserName())/Documents/Mac3am Music")
         
         do {
             // 디렉토리 생성
@@ -59,6 +88,32 @@ class PlayViewController: NSViewController {
     override func viewWillAppear() {
         botton_View.layer?.backgroundColor = NSColor.cyan.cgColor
         self.tableView.reloadData()
+    }
+    
+    override func viewDidAppear() {
+        view.window!.styleMask.insert(.resizable)
+        captureSession = AVCaptureSession()
+        captureSession.sessionPreset = .medium
+        guard let webCamera = AVCaptureDevice.default(for: AVMediaType.video)
+            else{
+                print("Unable to access camera!")
+                return
+        }
+        
+        do {
+            let input = try AVCaptureDeviceInput(device: webCamera)
+            
+            stillImageOutput = AVCaptureVideoDataOutput()
+            
+            if captureSession.canAddInput(input) && captureSession.canAddOutput(stillImageOutput) {
+                captureSession.addInput(input)
+                captureSession.addOutput(stillImageOutput)
+                setupLivePreview()
+            }
+        }
+        catch let error  {
+            print("Error Unable to initialize back camera:  \(error.localizedDescription)")
+        }
     }
     
     @IBAction func playBtnTouched(_ sender: NSButton) {
@@ -86,6 +141,46 @@ class PlayViewController: NSViewController {
     
     @IBAction func skipBtnTouched(_ sender: NSButton) {
         player?.stop()
+        
+        //coreData Setting
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
+        var thisUser:NSManagedObject! = nil
+        var thisIsNewSong = true
+        var skipTime = 0
+        //request.predicate = NSPredicate(format: "age = %@", "12")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "name") as! String)
+                if((data.value(forKey: "name") as! String) == musicList[currentMusicIndex]) {
+                    thisUser = data
+                    thisIsNewSong = false
+                    skipTime = data.value(forKey: "skip") as! Int
+                }
+            }
+        } catch {
+            print("Failed")
+        }
+        
+        if thisIsNewSong {
+            thisUser = NSManagedObject(entity: entity!, insertInto: context)
+            thisUser.setValue(musicList[currentMusicIndex], forKey: "name")
+            thisUser.setValue(1, forKey: "skip")
+            thisUser.setValue("testEmotion", forKey: "emotion")
+        }
+        else {
+            thisUser.setValue(skipTime + 1, forKey: "skip")
+            thisUser.setValue("testEmotion2", forKey: "emotion")
+        }
+        
+        do {
+            try context.save()
+        } catch {
+            print("Failed saving")
+        }
+        
+        //next Music
         currentMusicIndex += 1
         if currentMusicIndex == musicList.count {
             currentMusicIndex = 0
@@ -94,6 +189,28 @@ class PlayViewController: NSViewController {
         load_Play_Music(url: url)
     }
     
+    //video setup
+    func setupLivePreview() {
+        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        
+        videoPreviewLayer.videoGravity = .resizeAspect
+        videoPreviewLayer.connection?.videoOrientation = .portrait
+        faceView.layer?.addSublayer(videoPreviewLayer)
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            
+            self.captureSession.startRunning()
+            DispatchQueue.main.async {
+                self.videoPreviewLayer.frame = self.faceView.bounds
+            }
+        }
+    }
+    
+    func didTakePhoto() {
+        
+    }
+    
+    //play music
     func load_Play_Music(url:URL) {
         do {
             //선택된 음악 재생.
