@@ -3,38 +3,34 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64391DAE9A2DF8832FB14D15 /* Pods_Mac3am.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9688725D9A7850193793F72A /* Pods_Mac3am.framework */; };
 		7AB831762286AC47009FC41B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831752286AC47009FC41B /* AppDelegate.swift */; };
-		7AB831782286AC47009FC41B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831772286AC47009FC41B /* ViewController.swift */; };
+		7AB831782286AC47009FC41B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831772286AC47009FC41B /* LoginViewController.swift */; };
 		7AB8317A2286AC49009FC41B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB831792286AC49009FC41B /* Assets.xcassets */; };
 		7AB8317D2286AC49009FC41B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8317B2286AC49009FC41B /* Main.storyboard */; };
-		7AB831892286BB5E009FC41B /* Mac3am-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB831882286BB5E009FC41B /* Mac3am-logo.png */; };
-		7AB831912287FADD009FC41B /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8318C2287FADC009FC41B /* back.png */; };
-		7AB831922287FADD009FC41B /* forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8318D2287FADC009FC41B /* forward.png */; };
-		7AB831932287FADD009FC41B /* multimedia.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8318E2287FADC009FC41B /* multimedia.png */; };
-		7AB831942287FADD009FC41B /* back (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8318F2287FADC009FC41B /* back (1).png */; };
-		7AB831952287FADD009FC41B /* forward (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB831902287FADC009FC41B /* forward (1).png */; };
 		7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831962287FF84009FC41B /* MainWindowController.swift */; };
+		7ACDDB9C2312593D006A0FE8 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7ACDDB9A2312593D006A0FE8 /* Model.xcdatamodeld */; };
+		949A19E822995A4300F26995 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949A19E722995A4300F26995 /* PlayViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16A07FE613813911499D5050 /* Pods-Mac3am.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mac3am.debug.xcconfig"; path = "Target Support Files/Pods-Mac3am/Pods-Mac3am.debug.xcconfig"; sourceTree = "<group>"; };
+		311D8FC23B8A6991A0D4EFA3 /* Pods-Mac3am.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mac3am.release.xcconfig"; path = "Target Support Files/Pods-Mac3am/Pods-Mac3am.release.xcconfig"; sourceTree = "<group>"; };
 		7AB831722286AC47009FC41B /* Mac3am.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mac3am.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB831752286AC47009FC41B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7AB831772286AC47009FC41B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7AB831772286AC47009FC41B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7AB831792286AC49009FC41B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7AB8317C2286AC49009FC41B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7AB8317E2286AC49009FC41B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AB8317F2286AC49009FC41B /* Mac3am.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mac3am.entitlements; sourceTree = "<group>"; };
-		7AB831882286BB5E009FC41B /* Mac3am-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mac3am-logo.png"; sourceTree = "<group>"; };
-		7AB8318C2287FADC009FC41B /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
-		7AB8318D2287FADC009FC41B /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forward.png; sourceTree = "<group>"; };
-		7AB8318E2287FADC009FC41B /* multimedia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = multimedia.png; sourceTree = "<group>"; };
-		7AB8318F2287FADC009FC41B /* back (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back (1).png"; sourceTree = "<group>"; };
-		7AB831902287FADC009FC41B /* forward (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward (1).png"; sourceTree = "<group>"; };
 		7AB831962287FF84009FC41B /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		7ACDDB9B2312593D006A0FE8 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		949A19E722995A4300F26995 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
+		9688725D9A7850193793F72A /* Pods_Mac3am.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mac3am.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,17 +38,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64391DAE9A2DF8832FB14D15 /* Pods_Mac3am.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0678DF0C7CB0CF289BCF8558 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				16A07FE613813911499D5050 /* Pods-Mac3am.debug.xcconfig */,
+				311D8FC23B8A6991A0D4EFA3 /* Pods-Mac3am.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		54BC29EEA82D73DC7B67C448 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9688725D9A7850193793F72A /* Pods_Mac3am.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7AB831692286AC47009FC41B = {
 			isa = PBXGroup;
 			children = (
 				7AB831742286AC47009FC41B /* Mac3am */,
 				7AB831732286AC47009FC41B /* Products */,
+				0678DF0C7CB0CF289BCF8558 /* Pods */,
+				54BC29EEA82D73DC7B67C448 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,29 +83,41 @@
 		7AB831742286AC47009FC41B /* Mac3am */ = {
 			isa = PBXGroup;
 			children = (
-				7AB831852286BAA0009FC41B /* Source */,
+				7AFCDEE122F5743200B2F515 /* Controller */,
+				7AFCDEE022F5742E00B2F515 /* View */,
+				7AFCDEDF22F5742700B2F515 /* Model */,
 				7AB831752286AC47009FC41B /* AppDelegate.swift */,
-				7AB831772286AC47009FC41B /* ViewController.swift */,
 				7AB831792286AC49009FC41B /* Assets.xcassets */,
-				7AB8317B2286AC49009FC41B /* Main.storyboard */,
 				7AB8317E2286AC49009FC41B /* Info.plist */,
 				7AB8317F2286AC49009FC41B /* Mac3am.entitlements */,
-				7AB831962287FF84009FC41B /* MainWindowController.swift */,
 			);
 			path = Mac3am;
 			sourceTree = "<group>";
 		};
-		7AB831852286BAA0009FC41B /* Source */ = {
+		7AFCDEDF22F5742700B2F515 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7AB8318F2287FADC009FC41B /* back (1).png */,
-				7AB8318C2287FADC009FC41B /* back.png */,
-				7AB831902287FADC009FC41B /* forward (1).png */,
-				7AB8318D2287FADC009FC41B /* forward.png */,
-				7AB8318E2287FADC009FC41B /* multimedia.png */,
-				7AB831882286BB5E009FC41B /* Mac3am-logo.png */,
+				7ACDDB9A2312593D006A0FE8 /* Model.xcdatamodeld */,
 			);
-			path = Source;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7AFCDEE022F5742E00B2F515 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7AB8317B2286AC49009FC41B /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7AFCDEE122F5743200B2F515 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7AB831772286AC47009FC41B /* LoginViewController.swift */,
+				949A19E722995A4300F26995 /* PlayViewController.swift */,
+				7AB831962287FF84009FC41B /* MainWindowController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -99,9 +127,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AB831822286AC49009FC41B /* Build configuration list for PBXNativeTarget "Mac3am" */;
 			buildPhases = (
+				97EDE2ADDFA6825FC8AF4314 /* [CP] Check Pods Manifest.lock */,
 				7AB8316E2286AC47009FC41B /* Sources */,
 				7AB8316F2286AC47009FC41B /* Frameworks */,
 				7AB831702286AC47009FC41B /* Resources */,
+				8FBF29A7CE7F7C1B083FBF2E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -124,6 +154,15 @@
 				TargetAttributes = {
 					7AB831712286AC47009FC41B = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1030;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 0;
+							};
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -150,25 +189,63 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AB831932287FADD009FC41B /* multimedia.png in Resources */,
-				7AB831942287FADD009FC41B /* back (1).png in Resources */,
-				7AB831912287FADD009FC41B /* back.png in Resources */,
 				7AB8317A2286AC49009FC41B /* Assets.xcassets in Resources */,
-				7AB831922287FADD009FC41B /* forward.png in Resources */,
 				7AB8317D2286AC49009FC41B /* Main.storyboard in Resources */,
-				7AB831952287FADD009FC41B /* forward (1).png in Resources */,
-				7AB831892286BB5E009FC41B /* Mac3am-logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8FBF29A7CE7F7C1B083FBF2E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mac3am/Pods-Mac3am-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mac3am/Pods-Mac3am-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mac3am/Pods-Mac3am-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		97EDE2ADDFA6825FC8AF4314 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mac3am-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7AB8316E2286AC47009FC41B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AB831782286AC47009FC41B /* ViewController.swift in Sources */,
+				949A19E822995A4300F26995 /* PlayViewController.swift in Sources */,
+				7AB831782286AC47009FC41B /* LoginViewController.swift in Sources */,
+				7ACDDB9C2312593D006A0FE8 /* Model.xcdatamodeld in Sources */,
 				7AB831762286AC47009FC41B /* AppDelegate.swift in Sources */,
 				7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */,
 			);
@@ -305,9 +382,10 @@
 		};
 		7AB831832286AC49009FC41B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16A07FE613813911499D5050 /* Pods-Mac3am.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Mac3am/Mac3am.entitlements;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z73D4U4HW8;
@@ -318,15 +396,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Mac3am.Motion.Mac3am;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		7AB831842286AC49009FC41B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 311D8FC23B8A6991A0D4EFA3 /* Pods-Mac3am.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Mac3am/Mac3am.entitlements;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z73D4U4HW8;
@@ -363,6 +443,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7ACDDB9A2312593D006A0FE8 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7ACDDB9B2312593D006A0FE8 /* Model.xcdatamodel */,
+			);
+			currentVersion = 7ACDDB9B2312593D006A0FE8 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7AB8316A2286AC47009FC41B /* Project object */;
 }
