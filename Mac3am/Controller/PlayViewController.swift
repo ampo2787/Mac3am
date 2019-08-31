@@ -35,8 +35,10 @@ class PlayViewController: NSViewController {
     
     //video
     var captureSession: AVCaptureSession!
-    var stillImageOutput: AVCaptureVideoDataOutput!
+    var videoOutput: AVCaptureVideoDataOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
+    var stillImageOutput = AVCaptureStillImageOutput()
+    var saveCGImage:CGImage! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,10 +105,12 @@ class PlayViewController: NSViewController {
         do {
             let input = try AVCaptureDeviceInput(device: webCamera)
             
-            stillImageOutput = AVCaptureVideoDataOutput()
+            videoOutput = AVCaptureVideoDataOutput()
+            stillImageOutput = AVCaptureStillImageOutput()
             
-            if captureSession.canAddInput(input) && captureSession.canAddOutput(stillImageOutput) {
+            if captureSession.canAddInput(input) && captureSession.canAddOutput(videoOutput) && captureSession.canAddOutput(stillImageOutput) {
                 captureSession.addInput(input)
+                captureSession.addOutput(videoOutput)
                 captureSession.addOutput(stillImageOutput)
                 setupLivePreview()
             }
@@ -179,6 +183,19 @@ class PlayViewController: NSViewController {
         } catch {
             print("Failed saving")
         }
+        //capture image
+        if let videoConnection = stillImageOutput.connection(with: AVMediaType.video) {
+            stillImageOutput.captureStillImageAsynchronously(from: videoConnection) {
+                (imageDataSampleBuffer, error) -> Void in
+                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer!)
+                let myimage = NSImage.init(data: imageData!)
+                
+                if let image = myimage {
+                    var imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+                    self.saveCGImage = image.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)!
+                }
+            }
+        }
         
         //next Music
         currentMusicIndex += 1
@@ -204,10 +221,6 @@ class PlayViewController: NSViewController {
                 self.videoPreviewLayer.frame = self.faceView.bounds
             }
         }
-    }
-    
-    func didTakePhoto() {
-        
     }
     
     //play music
