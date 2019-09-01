@@ -8,6 +8,8 @@
 
 import Cocoa
 import AVFoundation
+import CoreML
+import Vision
 
 var player: AVAudioPlayer?
 
@@ -33,12 +35,17 @@ class PlayViewController: NSViewController {
     var context:NSManagedObjectContext! = nil
     var entity:NSEntityDescription! = nil
     
+    //ML - Face Detect
+    let faceDetectionRequest = VNDetectFaceRectanglesRequest() // 얼굴 인식 요청을 하는 Request
+    let faceDetectionRequestHandler = VNSequenceRequestHandler() // 얼굴 인식 요청을 처리 하는 handler
+    
     //video
     var captureSession: AVCaptureSession!
     var videoOutput: AVCaptureVideoDataOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var stillImageOutput = AVCaptureStillImageOutput()
-    var saveCGImage:CGImage! = nil
+    var currentImage:CGImage! = nil
+    var cropImage:CGImage! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -192,7 +199,32 @@ class PlayViewController: NSViewController {
                 
                 if let image = myimage {
                     var imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-                    self.saveCGImage = image.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)!
+                    self.currentImage = image.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)!
+                    
+                    try? self.faceDetectionRequestHandler.perform(
+                        [self.faceDetectionRequest], // 핸들러는 faceDetectionRequest의 요청들을 처리한다
+                        on: self.currentImage)// 우리가 처리하고 싶은 이미지
+                    
+                    if let faceDetectionResults = self.faceDetectionRequest.results as? [VNFaceObservation]{ // 핸들러가 처리한 결과를 얻음
+                        for face in faceDetectionResults{ // 결과들
+                            let bbox = face.boundingBox // 결과의 바운딩 박스
+                            let floatWidth = CGFloat(self.currentImage.width)
+                            let floatHeight = CGFloat(self.currentImage.height)
+                            // 바운딩 박스 설정
+                            let faceRect = CGRect(
+                                x: bbox.origin.x * floatWidth,
+                                y: floatHeight - (bbox.origin.y * floatHeight + bbox.height * floatHeight),
+                                width: bbox.width * floatWidth,
+                                height: bbox.height * floatHeight)
+                            
+                            // 이미지 자르기
+                            if let  cgImage = self.currentImage{
+                                if let imageRef = cgImage.cropping(to: faceRect){
+                                    self.cropImage = imageRef
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -204,6 +236,8 @@ class PlayViewController: NSViewController {
         }
         let url = self.dataPath.appendingPathComponent(musicList[currentMusicIndex])
         load_Play_Music(url: url)
+        
+        
     }
     
     //video setup
