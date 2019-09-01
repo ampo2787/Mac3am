@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		64391DAE9A2DF8832FB14D15 /* Pods_Mac3am.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9688725D9A7850193793F72A /* Pods_Mac3am.framework */; };
+		7A4112AD231B9DBF008A2F90 /* ExpressionRecognitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4112A8231B9DBF008A2F90 /* ExpressionRecognitionModel.swift */; };
+		7A4112B2231B9DE7008A2F90 /* ExpressionRecognitionModelRaw.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = 7A4112B0231B9DE7008A2F90 /* ExpressionRecognitionModelRaw.mlmodelc */; };
+		7A4112B3231B9DE7008A2F90 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 7A4112B1231B9DE7008A2F90 /* images */; };
 		7AB831762286AC47009FC41B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831752286AC47009FC41B /* AppDelegate.swift */; };
 		7AB831782286AC47009FC41B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831772286AC47009FC41B /* LoginViewController.swift */; };
 		7AB8317A2286AC49009FC41B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB831792286AC49009FC41B /* Assets.xcassets */; };
@@ -20,6 +23,9 @@
 /* Begin PBXFileReference section */
 		16A07FE613813911499D5050 /* Pods-Mac3am.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mac3am.debug.xcconfig"; path = "Target Support Files/Pods-Mac3am/Pods-Mac3am.debug.xcconfig"; sourceTree = "<group>"; };
 		311D8FC23B8A6991A0D4EFA3 /* Pods-Mac3am.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mac3am.release.xcconfig"; path = "Target Support Files/Pods-Mac3am/Pods-Mac3am.release.xcconfig"; sourceTree = "<group>"; };
+		7A4112A8231B9DBF008A2F90 /* ExpressionRecognitionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressionRecognitionModel.swift; sourceTree = "<group>"; };
+		7A4112B0231B9DE7008A2F90 /* ExpressionRecognitionModelRaw.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExpressionRecognitionModelRaw.mlmodelc; sourceTree = "<group>"; };
+		7A4112B1231B9DE7008A2F90 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		7AB831722286AC47009FC41B /* Mac3am.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mac3am.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB831752286AC47009FC41B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AB831772286AC47009FC41B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +68,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7A4112A4231B9DAA008A2F90 /* CoreML */ = {
+			isa = PBXGroup;
+			children = (
+				7A4112AF231B9DD2008A2F90 /* Resource */,
+				7A4112A8231B9DBF008A2F90 /* ExpressionRecognitionModel.swift */,
+			);
+			path = CoreML;
+			sourceTree = "<group>";
+		};
+		7A4112AF231B9DD2008A2F90 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				7A4112B0231B9DE7008A2F90 /* ExpressionRecognitionModelRaw.mlmodelc */,
+				7A4112B1231B9DE7008A2F90 /* images */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		7AB831692286AC47009FC41B = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +107,7 @@
 		7AB831742286AC47009FC41B /* Mac3am */ = {
 			isa = PBXGroup;
 			children = (
+				7A4112A4231B9DAA008A2F90 /* CoreML */,
 				7AFCDEE122F5743200B2F515 /* Controller */,
 				7AFCDEE022F5742E00B2F515 /* View */,
 				7AFCDEDF22F5742700B2F515 /* Model */,
@@ -189,7 +214,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A4112B3231B9DE7008A2F90 /* images in Resources */,
 				7AB8317A2286AC49009FC41B /* Assets.xcassets in Resources */,
+				7A4112B2231B9DE7008A2F90 /* ExpressionRecognitionModelRaw.mlmodelc in Resources */,
 				7AB8317D2286AC49009FC41B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,6 +273,7 @@
 				949A19E822995A4300F26995 /* PlayViewController.swift in Sources */,
 				7AB831782286AC47009FC41B /* LoginViewController.swift in Sources */,
 				7ACDDB9C2312593D006A0FE8 /* Model.xcdatamodeld in Sources */,
+				7A4112AD231B9DBF008A2F90 /* ExpressionRecognitionModel.swift in Sources */,
 				7AB831762286AC47009FC41B /* AppDelegate.swift in Sources */,
 				7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */,
 			);
