@@ -296,7 +296,7 @@ class PlayViewController: NSViewController {
                 while(true){
                     DispatchQueue.main.async {
                         self.playTimeIndicator.doubleValue = (self.currentMusicPlayer?.currentTime)!
-                        print(self.playTimeIndicator.doubleValue)
+//                        print(self.playTimeIndicator.doubleValue)
                     }
                     sleep(1)
                 }
@@ -341,7 +341,7 @@ class PlayViewController: NSViewController {
             for observation in landmarksResults {
                 DispatchQueue.main.async {
                     if let boundingBox = self.faceLandmarks.inputFaceObservations?.first?.boundingBox {
-                        let faceBoundingBox = boundingBox.scaled(to: self.view.bounds.size)
+                        let faceBoundingBox = boundingBox.scaled(to: self.faceView.bounds.size)
                         
                         //different types of landmarks
                         let faceContour = observation.landmarks?.faceContour
@@ -379,9 +379,19 @@ class PlayViewController: NSViewController {
     func convertPointsForFace(_ landmark: VNFaceLandmarkRegion2D?, _ boundingBox: CGRect) {
         if let points = landmark?.normalizedPoints, let _ = landmark?.pointCount {
             let faceLandmarkPoints = points.map { (point: CGPoint) -> (x: CGFloat, y: CGFloat) in
-                let pointX = point.x * boundingBox.width + boundingBox.origin.x
-                let pointY = point.y * boundingBox.height + boundingBox.origin.y
                 
+                //size.height - (self.origin.y * size.height + self.size.height * size.height)
+                // 바운딩 박스 설정
+                /*
+                 let faceRect = CGRect(
+                 x: bbox.origin.x * floatWidth,
+                 y: floatHeight - (bbox.origin.y * floatHeight + bbox.height * floatHeight),
+                 width: bbox.width * floatWidth,
+                 height: bbox.height * floatHeight)
+                 */
+                
+                let pointX = point.x * boundingBox.width + boundingBox.origin.x
+                let pointY = boundingBox.origin.y + boundingBox.height - (point.y * boundingBox.height)
                 return (x: pointX, y: pointY)
             }
             
@@ -394,7 +404,7 @@ class PlayViewController: NSViewController {
     func draw(points: [(x: CGFloat, y: CGFloat)]) {
         let newLayer = CAShapeLayer()
         newLayer.strokeColor = NSColor.red.cgColor
-        newLayer.lineWidth = 5.0
+        newLayer.lineWidth = 2
         newLayer.frame = self.faceView.bounds
         newLayer.fillRule = CAShapeLayerFillRule.evenOdd
 
@@ -402,7 +412,7 @@ class PlayViewController: NSViewController {
         //path.move(to: CGPoint(x: points[0].x, y: points[0].y))
         for i in 0..<points.count - 1 {
             //let point = CGPoint(x: points[i].x, y: points[i].y)
-            let rect = CGRect(x: points[i].x, y: points[i].y, width: 2, height: 2)
+            let rect = CGRect(x: points[i].x, y: points[i].y, width: 0.3, height: 0.3)
 
             path.addEllipse(in: rect)
             //path.move(to: point)
