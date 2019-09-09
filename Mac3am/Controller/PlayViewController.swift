@@ -36,8 +36,13 @@ class PlayViewController: NSViewController {
     var entity:NSEntityDescription! = nil
     
     //ML - Face Detect
+    let shapeLayer = CAShapeLayer()
+
     let faceDetectionRequest = VNDetectFaceRectanglesRequest() // 얼굴 인식 요청을 하는 Request
     let faceDetectionRequestHandler = VNSequenceRequestHandler() // 얼굴 인식 요청을 처리 하는 handler
+    let faceLandmarks = VNDetectFaceLandmarksRequest()
+    let faceLandmarksDetectionRequest = VNSequenceRequestHandler()
+
     
     //video
     var captureSession: AVCaptureSession!
@@ -46,6 +51,7 @@ class PlayViewController: NSViewController {
     var stillImageOutput = AVCaptureStillImageOutput()
     var currentImage:CGImage! = nil
     var cropImage:CGImage! = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +97,7 @@ class PlayViewController: NSViewController {
         } catch let error as NSError {
             print("Error access directory: \(error)")
         }
+        
         
     }
     
@@ -190,6 +197,7 @@ class PlayViewController: NSViewController {
         } catch {
             print("Failed saving")
         }
+        
         //capture image
         if let videoConnection = stillImageOutput.connection(with: AVMediaType.video) {
             stillImageOutput.captureStillImageAsynchronously(from: videoConnection) {
@@ -201,6 +209,8 @@ class PlayViewController: NSViewController {
                     var imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
                     self.currentImage = image.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)!
                     
+                    self.detectFace(on: CIImage.init(cgImage: self.currentImage))
+/*
                     try? self.faceDetectionRequestHandler.perform(
                         [self.faceDetectionRequest], // 핸들러는 faceDetectionRequest의 요청들을 처리한다
                         on: self.currentImage)// 우리가 처리하고 싶은 이미지
@@ -225,6 +235,7 @@ class PlayViewController: NSViewController {
                             }
                         }
                     }
+                    */
                 }
             }
         }
@@ -248,11 +259,16 @@ class PlayViewController: NSViewController {
         videoPreviewLayer.connection?.videoOrientation = .portrait
         faceView.layer?.addSublayer(videoPreviewLayer)
         
+        shapeLayer.strokeColor = NSColor.red.cgColor
+        shapeLayer.lineWidth = 2.0
+        shapeLayer.setAffineTransform(CGAffineTransform(scaleX: -1, y: -1))
+        videoPreviewLayer.addSublayer(shapeLayer)
+
         DispatchQueue.global(qos: .userInitiated).async {
-            
             self.captureSession.startRunning()
             DispatchQueue.main.async {
                 self.videoPreviewLayer.frame = self.faceView.bounds
+                self.shapeLayer.frame = self.faceView.bounds
             }
         }
     }
@@ -303,11 +319,112 @@ class PlayViewController: NSViewController {
             print(error.localizedDescription)
         }
     }
+    
+    //Face dot action
+    func detectFace(on image: CIImage) {
+        try? faceDetectionRequestHandler.perform([faceDetectionRequest], on: image)
+        if let results = faceDetectionRequest.results as? [VNFaceObservation] {
+            if !results.isEmpty {
+                faceLandmarks.inputFaceObservations = results
+                detectLandmarks(on: image)
+                
+                DispatchQueue.main.async {
+                    self.shapeLayer.sublayers?.removeAll()
+                }
+            }
+        }
+    }
+    
+    func detectLandmarks(on image: CIImage) {
+        try? faceLandmarksDetectionRequest.perform([faceLandmarks], on: image)
+        if let landmarksResults = faceLandmarks.results as? [VNFaceObservation] {
+            for observation in landmarksResults {
+                DispatchQueue.main.async {
+                    if let boundingBox = self.faceLandmarks.inputFaceObservations?.first?.boundingBox {
+                        let faceBoundingBox = boundingBox.scaled(to: self.view.bounds.size)
+                        
+                        //different types of landmarks
+                        let faceContour = observation.landmarks?.faceContour
+                        self.convertPointsForFace(faceContour, faceBoundingBox)
+                        
+                        let leftEye = observation.landmarks?.leftEye
+                        self.convertPointsForFace(leftEye, faceBoundingBox)
+                        
+                        let rightEye = observation.landmarks?.rightEye
+                        self.convertPointsForFace(rightEye, faceBoundingBox)
+                        
+                        let nose = observation.landmarks?.nose
+                        self.convertPointsForFace(nose, faceBoundingBox)
+                        
+                        let lips = observation.landmarks?.innerLips
+                        self.convertPointsForFace(lips, faceBoundingBox)
+                        
+                        let leftEyebrow = observation.landmarks?.leftEyebrow
+                        self.convertPointsForFace(leftEyebrow, faceBoundingBox)
+                        
+                        let rightEyebrow = observation.landmarks?.rightEyebrow
+                        self.convertPointsForFace(rightEyebrow, faceBoundingBox)
+                        
+                        let noseCrest = observation.landmarks?.noseCrest
+                        self.convertPointsForFace(noseCrest, faceBoundingBox)
+                        
+                        let outerLips = observation.landmarks?.outerLips
+                        self.convertPointsForFace(outerLips, faceBoundingBox)
+                    }
+                }
+            }
+        }
+    }
+    
+    func convertPointsForFace(_ landmark: VNFaceLandmarkRegion2D?, _ boundingBox: CGRect) {
+        if let points = landmark?.normalizedPoints, let _ = landmark?.pointCount {
+            let faceLandmarkPoints = points.map { (point: CGPoint) -> (x: CGFloat, y: CGFloat) in
+                let pointX = point.x * boundingBox.width + boundingBox.origin.x
+                let pointY = point.y * boundingBox.height + boundingBox.origin.y
+                
+                return (x: pointX, y: pointY)
+            }
+            
+            DispatchQueue.main.async {
+                self.draw(points: faceLandmarkPoints)
+            }
+        }
+    }
+    
+    func draw(points: [(x: CGFloat, y: CGFloat)]) {
+        let newLayer = CAShapeLayer()
+        newLayer.strokeColor = NSColor.red.cgColor
+        newLayer.lineWidth = 5.0
+        newLayer.frame = self.faceView.bounds
+        newLayer.fillRule = CAShapeLayerFillRule.evenOdd
+
+        let path = CGMutablePath()
+        //path.move(to: CGPoint(x: points[0].x, y: points[0].y))
+        for i in 0..<points.count - 1 {
+            //let point = CGPoint(x: points[i].x, y: points[i].y)
+            let rect = CGRect(x: points[i].x, y: points[i].y, width: 2, height: 2)
+
+            path.addEllipse(in: rect)
+            //path.move(to: point)
+        }
+        //path.addLine(to: CGPoint(x: points[0].x, y: points[0].y))
+        newLayer.path = path
+        shapeLayer.addSublayer(newLayer)
+    }
+    
+    
+    func convert(_ points: UnsafePointer<vector_float2>, with count: Int) -> [(x: CGFloat, y: CGFloat)] {
+        var convertedPoints = [(x: CGFloat, y: CGFloat)]()
+        for i in 0...count {
+            convertedPoints.append((CGFloat(points[i].x), CGFloat(points[i].y)))
+        }
+        
+        return convertedPoints
+    }
 
 }
 
-extension PlayViewController: NSTableViewDataSource, NSTableViewDelegate {
-    
+extension PlayViewController: NSTableViewDataSource, NSTableViewDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     fileprivate enum CellIdentifiers {
         static let NameCell = "playList"
     }
@@ -343,3 +460,4 @@ extension PlayViewController: NSTableViewDataSource, NSTableViewDelegate {
     }
     
 }
+
