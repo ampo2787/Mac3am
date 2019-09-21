@@ -42,7 +42,6 @@ class PlayViewController: NSViewController {
     let faceDetectionRequestHandler = VNSequenceRequestHandler() // 얼굴 인식 요청을 처리 하는 handler
     let faceLandmarks = VNDetectFaceLandmarksRequest()
     let faceLandmarksDetectionRequest = VNSequenceRequestHandler()
-
     
     //video
     var captureSession: AVCaptureSession!
@@ -52,6 +51,10 @@ class PlayViewController: NSViewController {
     var currentImage:CGImage! = nil
     var cropImage:CGImage! = nil
     
+    //csv file
+    let fileName = "FaceDot.csv"
+    var csvPath:URL? = nil
+    var csvText:String? = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +101,14 @@ class PlayViewController: NSViewController {
             print("Error access directory: \(error)")
         }
         
-        
+        //csv file
+        csvPath = URL.init(fileURLWithPath: "/Users/\(NSUserName())/Documents/\(self.fileName)")
+        do {
+            // 디렉토리 생성
+            try fileManager.createDirectory(atPath: dataPath.path, withIntermediateDirectories: false, attributes: nil)
+        } catch let error as NSError {
+            print("Error create directory: \(error), 아마 이미 생성되어 있을 것")
+        }
     }
     
     override func viewWillAppear() {
@@ -159,7 +169,6 @@ class PlayViewController: NSViewController {
     
     @IBAction func skipBtnTouched(_ sender: NSButton) {
         player?.stop()
-        
         //coreData Setting
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
         var thisUser:NSManagedObject! = nil
@@ -345,41 +354,51 @@ class PlayViewController: NSViewController {
                         
                         //different types of landmarks
                         let faceContour = observation.landmarks?.faceContour
-                        self.convertPointsForFace(faceContour, faceBoundingBox)
+                        self.convertPointsForFace(faceContour, faceBoundingBox, "faceContour")
                         
                         let leftEye = observation.landmarks?.leftEye
-                        self.convertPointsForFace(leftEye, faceBoundingBox)
+                        self.convertPointsForFace(leftEye, faceBoundingBox, "leftEye")
                         
                         let rightEye = observation.landmarks?.rightEye
-                        self.convertPointsForFace(rightEye, faceBoundingBox)
+                        self.convertPointsForFace(rightEye, faceBoundingBox, "rightEye")
                         
                         let nose = observation.landmarks?.nose
-                        self.convertPointsForFace(nose, faceBoundingBox)
+                        self.convertPointsForFace(nose, faceBoundingBox, "nose")
                         
                         let lips = observation.landmarks?.innerLips
-                        self.convertPointsForFace(lips, faceBoundingBox)
+                        self.convertPointsForFace(lips, faceBoundingBox, "lips")
                         
                         let leftEyebrow = observation.landmarks?.leftEyebrow
-                        self.convertPointsForFace(leftEyebrow, faceBoundingBox)
+                        self.convertPointsForFace(leftEyebrow, faceBoundingBox, "leftEyebrow")
                         
                         let rightEyebrow = observation.landmarks?.rightEyebrow
-                        self.convertPointsForFace(rightEyebrow, faceBoundingBox)
+                        self.convertPointsForFace(rightEyebrow, faceBoundingBox, "rightEyebrow")
                         
                         let noseCrest = observation.landmarks?.noseCrest
-                        self.convertPointsForFace(noseCrest, faceBoundingBox)
+                        self.convertPointsForFace(noseCrest, faceBoundingBox, "noseCrest")
                         
                         let outerLips = observation.landmarks?.outerLips
-                        self.convertPointsForFace(outerLips, faceBoundingBox)
-                    }
+                        self.convertPointsForFace(outerLips, faceBoundingBox, "outerLips")
+                        
+                        //csv 파일 생성
+                        do {
+                            try self.csvText!.write(to: self.csvPath!, atomically: true, encoding: String.Encoding.utf8)
+                            print("Success Create")
+                        } catch {
+                            print("fail To create CSV File")
+                            print("\(error)")
+                        }
+                   }
                 }
             }
         }
     }
     
-    func convertPointsForFace(_ landmark: VNFaceLandmarkRegion2D?, _ boundingBox: CGRect) {
+    func convertPointsForFace(_ landmark: VNFaceLandmarkRegion2D?, _ boundingBox: CGRect, _ thisType:String) {
+        var csvLine = thisType
+        
         if let points = landmark?.normalizedPoints, let _ = landmark?.pointCount {
             let faceLandmarkPoints = points.map { (point: CGPoint) -> (x: CGFloat, y: CGFloat) in
-                
                 //size.height - (self.origin.y * size.height + self.size.height * size.height)
                 // 바운딩 박스 설정
                 /*
@@ -392,9 +411,11 @@ class PlayViewController: NSViewController {
                 
                 let pointX = point.x * boundingBox.width + boundingBox.origin.x
                 let pointY = boundingBox.origin.y + boundingBox.height - (point.y * boundingBox.height)
+                csvLine.append(", (\(pointX) * \(pointY))")
                 return (x: pointX, y: pointY)
             }
-            
+            self.csvText?.append(csvLine + "\n")
+
             DispatchQueue.main.async {
                 self.draw(points: faceLandmarkPoints)
             }
@@ -413,7 +434,6 @@ class PlayViewController: NSViewController {
         for i in 0..<points.count - 1 {
             //let point = CGPoint(x: points[i].x, y: points[i].y)
             let rect = CGRect(x: points[i].x, y: points[i].y, width: 0.3, height: 0.3)
-
             path.addEllipse(in: rect)
             //path.move(to: point)
         }
