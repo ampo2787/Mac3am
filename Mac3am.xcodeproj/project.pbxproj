@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		64391DAE9A2DF8832FB14D15 /* Pods_Mac3am.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9688725D9A7850193793F72A /* Pods_Mac3am.framework */; };
-		7A2F5128234B1F6A0008F8D2 /* your_model_name.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7A2F5127234B1F6A0008F8D2 /* your_model_name.mlmodel */; };
 		7A4112AD231B9DBF008A2F90 /* ExpressionRecognitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4112A8231B9DBF008A2F90 /* ExpressionRecognitionModel.swift */; };
 		7A4112B2231B9DE7008A2F90 /* ExpressionRecognitionModelRaw.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = 7A4112B0231B9DE7008A2F90 /* ExpressionRecognitionModelRaw.mlmodelc */; };
 		7A4112B3231B9DE7008A2F90 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 7A4112B1231B9DE7008A2F90 /* images */; };
@@ -19,6 +18,7 @@
 		7AB8317D2286AC49009FC41B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AB8317B2286AC49009FC41B /* Main.storyboard */; };
 		7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB831962287FF84009FC41B /* MainWindowController.swift */; };
 		7ACDDB9C2312593D006A0FE8 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7ACDDB9A2312593D006A0FE8 /* Model.xcdatamodeld */; };
+		7AD0CE95235C4D22003A545F /* dediuh.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0CE94235C4D22003A545F /* dediuh.mlmodel */; };
 		949A19E822995A4300F26995 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949A19E722995A4300F26995 /* PlayViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +26,6 @@
 		16A07FE613813911499D5050 /* Pods-Mac3am.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mac3am.debug.xcconfig"; path = "Target Support Files/Pods-Mac3am/Pods-Mac3am.debug.xcconfig"; sourceTree = "<group>"; };
 		311D8FC23B8A6991A0D4EFA3 /* Pods-Mac3am.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mac3am.release.xcconfig"; path = "Target Support Files/Pods-Mac3am/Pods-Mac3am.release.xcconfig"; sourceTree = "<group>"; };
 		7A18FF6C2324DAE400A5CC1A /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		7A2F5127234B1F6A0008F8D2 /* your_model_name.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = your_model_name.mlmodel; sourceTree = "<group>"; };
 		7A4112A8231B9DBF008A2F90 /* ExpressionRecognitionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressionRecognitionModel.swift; sourceTree = "<group>"; };
 		7A4112B0231B9DE7008A2F90 /* ExpressionRecognitionModelRaw.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExpressionRecognitionModelRaw.mlmodelc; sourceTree = "<group>"; };
 		7A4112B1231B9DE7008A2F90 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
@@ -40,6 +39,7 @@
 		7AB8317F2286AC49009FC41B /* Mac3am.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mac3am.entitlements; sourceTree = "<group>"; };
 		7AB831962287FF84009FC41B /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		7ACDDB9B2312593D006A0FE8 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		7AD0CE94235C4D22003A545F /* dediuh.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = dediuh.mlmodel; sourceTree = "<group>"; };
 		949A19E722995A4300F26995 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		9688725D9A7850193793F72A /* Pods_Mac3am.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mac3am.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -113,6 +113,7 @@
 		7AB831742286AC47009FC41B /* Mac3am */ = {
 			isa = PBXGroup;
 			children = (
+				7AD0CE94235C4D22003A545F /* dediuh.mlmodel */,
 				7A4112A4231B9DAA008A2F90 /* CoreML */,
 				7AFCDEE122F5743200B2F515 /* Controller */,
 				7AFCDEE022F5742E00B2F515 /* View */,
@@ -128,7 +129,6 @@
 		7AFCDEDF22F5742700B2F515 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7A2F5127234B1F6A0008F8D2 /* your_model_name.mlmodel */,
 				7ACDDB9A2312593D006A0FE8 /* Model.xcdatamodeld */,
 			);
 			path = Model;
@@ -279,12 +279,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				949A19E822995A4300F26995 /* PlayViewController.swift in Sources */,
+				7AD0CE95235C4D22003A545F /* dediuh.mlmodel in Sources */,
 				7AB831782286AC47009FC41B /* LoginViewController.swift in Sources */,
 				7ACDDB9C2312593D006A0FE8 /* Model.xcdatamodeld in Sources */,
 				7A4112AD231B9DBF008A2F90 /* ExpressionRecognitionModel.swift in Sources */,
 				7AB831762286AC47009FC41B /* AppDelegate.swift in Sources */,
 				7AB35D18232510ED003E88AC /* CGRect+Scaled.swift in Sources */,
-				7A2F5128234B1F6A0008F8D2 /* your_model_name.mlmodel in Sources */,
 				7AB831972287FF84009FC41B /* MainWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -57,7 +57,7 @@ class PlayViewController: NSViewController {
     var csvText:String? = ""
     
     //ML - My Model
-    let myModel = your_model_name()
+    var myModel = dediuh()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -182,7 +182,7 @@ class PlayViewController: NSViewController {
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "name") as! String)
+                //print(data.value(forKey: "name") as! String)
                 if((data.value(forKey: "name") as! String) == musicList[currentMusicIndex]) {
                     thisUser = data
                     thisIsNewSong = false
@@ -382,15 +382,21 @@ class PlayViewController: NSViewController {
                         let outerLips = observation.landmarks?.outerLips
                         self.convertPointsForFace(outerLips, faceBoundingBox, "outerLips")
                         
+                        //use my model
+                        self.calculateEmotion(emotionText: self.csvText!)
+                        
+
                         //csv 파일 생성
+                        //현재 사용 안함
+                        /*
                         do {
-                            self.calculateEmotion(emotionText: self.csvText!)
-                            //try self.csvText!.write(to: self.csvPath!, atomically: true, encoding: String.Encoding.utf8)
+                            try self.csvText!.write(to: self.csvPath!, atomically: true, encoding: String.Encoding.utf8)
                             print("Success Create")
                         } catch {
                             print("fail To create CSV File")
                             print("\(error)")
                         }
+                        */
                    }
                 }
             }
@@ -429,11 +435,11 @@ class PlayViewController: NSViewController {
         let df = emotionText.components(separatedBy: "\n")
         var tempArray:[Double] = []
         
-        let leftEye = shape(start: String(String(df[1]).split(separator: ",")[1]), end: String(String(df[1]).split(separator: ",")[5]), middleTop: String(String(df[1]).split(separator: ",")[7]), middleBottom: String(String(df[1]).split(separator: ",")[3]))
-        let rightEye = shape(start: String(String(df[2]).split(separator: ",")[1]), end: String(String(df[2]).split(separator: ",")[5]), middleTop: String(String(df[2]).split(separator: ",")[7]), middleBottom: String(String(df[2]).split(separator: ",")[3]))
-        let outerLip = shape(start: String(String(df[8]).split(separator: ",")[1]), end: String(String(df[8]).split(separator: ",")[6]), middleTop: String(String(df[8]).split(separator: ",")[8]), middleBottom: String(String(df[8]).split(separator: ",")[3]))
-        let leftEyeBrow = eyebrowShape(middle: String(String(df[5]).split(separator: ",")[2]), end: String(String(df[5]).split(separator: ",")[4]))
-        let rightEyeBrow = eyebrowShape(middle: String(String(df[6]).split(separator: ",")[2]), end: String(String(df[6]).split(separator: ",")[4]))
+        let leftEye = shape(start: String(String(df[1]).split(separator: ",")[1]), end: String(String(df[1]).split(separator: ",")[4]), middleTop: String(String(df[1]).split(separator: ",")[3]), middleBottom: String(String(df[1]).split(separator: ",")[5]))
+        let rightEye = shape(start: String(String(df[2]).split(separator: ",")[1]), end: String(String(df[2]).split(separator: ",")[4]), middleTop: String(String(df[2]).split(separator: ",")[3]), middleBottom: String(String(df[2]).split(separator: ",")[5]))
+        let outerLip = shape(start: String(String(df[8]).split(separator: ",")[1]), end: String(String(df[8]).split(separator: ",")[8]), middleTop: String(String(df[8]).split(separator: ",")[4]), middleBottom: String(String(df[8]).split(separator: ",")[11]))
+        let leftEyeBrow = eyebrowShape(middle: String(String(df[5]).split(separator: ",")[3]), end: String(String(df[5]).split(separator: ",")[6]))
+        let rightEyeBrow = eyebrowShape(middle: String(String(df[6]).split(separator: ",")[3]), end: String(String(df[6]).split(separator: ",")[6]))
         
         tempArray.append(leftEye)
         tempArray.append(rightEye)
@@ -441,23 +447,27 @@ class PlayViewController: NSViewController {
         tempArray.append(leftEyeBrow)
         tempArray.append(rightEyeBrow)
         
-        let myMLArray = try? MLMultiArray.init(shape: [5], dataType: MLMultiArrayDataType.float32)
+        //ML model 에 Array 넣을 때는 MLMultiArray 를 사용해야 함. 데이터를 넣을 수 있는 방법은 반복문 뿐.
+        let myMLArray = try? MLMultiArray.init(shape: [5], dataType: MLMultiArrayDataType.double)
+        
         for i in 0...tempArray.count-1 {
             myMLArray?[i] = NSNumber(value: tempArray[i])
         }
-        
+        //ML model 실행.
         guard let myModelOutput = try? myModel.prediction(input1: myMLArray!) else {
             fatalError("Unexpected runtime error.")
         }
         
         print(myModelOutput.output1)
+        print(myModelOutput.classLabel)
+        self.csvText = ""
 
     }
     
     func shape(start: String, end: String, middleTop : String, middleBottom:String) -> Double {
         let startY:Double! = Double(start.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
         let endY:Double! = Double(end.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
-        let bothEndY =  ( startY / endY ) / 2
+        let bothEndY =  ( startY + endY ) / 2
         let middleBottomY:Double! = Double(middleBottom.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
         let middleTopY:Double! = Double(middleTop.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
         return abs(bothEndY - middleBottomY)/abs(middleTopY - middleBottomY)
@@ -468,7 +478,7 @@ class PlayViewController: NSViewController {
         let middleY:Double! = Double(middle.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
         let endX:Double! = Double(end.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[0])
         let endY:Double! = Double(end.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
-        return (middleY-endY)/(middleX-endX)
+        return abs((middleY-endY)/(middleX-endX))
     }
     
     func draw(points: [(x: CGFloat, y: CGFloat)]) {
@@ -497,7 +507,6 @@ class PlayViewController: NSViewController {
         for i in 0...count {
             convertedPoints.append((CGFloat(points[i].x), CGFloat(points[i].y)))
         }
-        
         return convertedPoints
     }
 
