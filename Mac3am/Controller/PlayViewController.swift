@@ -112,6 +112,13 @@ class PlayViewController: NSViewController {
         } catch let error as NSError {
             print("Error create directory: \(error), 아마 이미 생성되어 있을 것")
         }
+        
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+            self.keyDown(with: $0)
+            self.skipBtnTouched(self.skipBtn)
+            return $0
+        }
+ 
     }
     
     override func viewWillAppear() {
@@ -253,7 +260,7 @@ class PlayViewController: NSViewController {
         }
         
         //next Music
-        currentMusicIndex += 1
+        currentMusicIndex += 2
         if currentMusicIndex == musicList.count {
             currentMusicIndex = 0
         }
@@ -426,7 +433,7 @@ class PlayViewController: NSViewController {
             self.csvText?.append(csvLine + "\n")
 
             DispatchQueue.main.async {
-                self.draw(points: faceLandmarkPoints)
+                //self.draw(points: faceLandmarkPoints)
             }
         }
     }
