@@ -10,7 +10,6 @@ import Foundation
 import Cocoa
 
 extension CGRect {
-    
     func scaled(to size: CGSize) -> CGRect {
         return CGRect(
             x: self.origin.x * size.width,

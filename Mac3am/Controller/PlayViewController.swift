@@ -42,7 +42,6 @@ class PlayViewController: NSViewController {
     let faceDetectionRequestHandler = VNSequenceRequestHandler() // 얼굴 인식 요청을 처리 하는 handler
     let faceLandmarks = VNDetectFaceLandmarksRequest()
     let faceLandmarksDetectionRequest = VNSequenceRequestHandler()
-
     
     //video
     var captureSession: AVCaptureSession!
@@ -52,6 +51,13 @@ class PlayViewController: NSViewController {
     var currentImage:CGImage! = nil
     var cropImage:CGImage! = nil
     
+    //csv file
+    let fileName = "FaceDot.csv"
+    var csvPath:URL? = nil
+    var csvText:String? = ""
+    
+    //ML - My Model
+    var myModel = dediuh()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +104,21 @@ class PlayViewController: NSViewController {
             print("Error access directory: \(error)")
         }
         
+        //csv file
+        csvPath = URL.init(fileURLWithPath: "/Users/\(NSUserName())/Documents/\(self.fileName)")
+        do {
+            // 디렉토리 생성
+            try fileManager.createDirectory(atPath: dataPath.path, withIntermediateDirectories: false, attributes: nil)
+        } catch let error as NSError {
+            print("Error create directory: \(error), 아마 이미 생성되어 있을 것")
+        }
         
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+            self.keyDown(with: $0)
+            self.skipBtnTouched(self.skipBtn)
+            return $0
+        }
+ 
     }
     
     override func viewWillAppear() {
@@ -159,7 +179,6 @@ class PlayViewController: NSViewController {
     
     @IBAction func skipBtnTouched(_ sender: NSButton) {
         player?.stop()
-        
         //coreData Setting
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
         var thisUser:NSManagedObject! = nil
@@ -170,7 +189,7 @@ class PlayViewController: NSViewController {
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "name") as! String)
+                //print(data.value(forKey: "name") as! String)
                 if((data.value(forKey: "name") as! String) == musicList[currentMusicIndex]) {
                     thisUser = data
                     thisIsNewSong = false
@@ -241,13 +260,12 @@ class PlayViewController: NSViewController {
         }
         
         //next Music
-        currentMusicIndex += 1
+        currentMusicIndex += 2
         if currentMusicIndex == musicList.count {
             currentMusicIndex = 0
         }
         let url = self.dataPath.appendingPathComponent(musicList[currentMusicIndex])
         load_Play_Music(url: url)
-        
         
     }
     
@@ -345,41 +363,58 @@ class PlayViewController: NSViewController {
                         
                         //different types of landmarks
                         let faceContour = observation.landmarks?.faceContour
-                        self.convertPointsForFace(faceContour, faceBoundingBox)
+                        self.convertPointsForFace(faceContour, faceBoundingBox, "faceContour")
                         
                         let leftEye = observation.landmarks?.leftEye
-                        self.convertPointsForFace(leftEye, faceBoundingBox)
+                        self.convertPointsForFace(leftEye, faceBoundingBox, "leftEye")
                         
                         let rightEye = observation.landmarks?.rightEye
-                        self.convertPointsForFace(rightEye, faceBoundingBox)
+                        self.convertPointsForFace(rightEye, faceBoundingBox, "rightEye")
                         
                         let nose = observation.landmarks?.nose
-                        self.convertPointsForFace(nose, faceBoundingBox)
+                        self.convertPointsForFace(nose, faceBoundingBox, "nose")
                         
                         let lips = observation.landmarks?.innerLips
-                        self.convertPointsForFace(lips, faceBoundingBox)
+                        self.convertPointsForFace(lips, faceBoundingBox, "lips")
                         
                         let leftEyebrow = observation.landmarks?.leftEyebrow
-                        self.convertPointsForFace(leftEyebrow, faceBoundingBox)
+                        self.convertPointsForFace(leftEyebrow, faceBoundingBox, "leftEyebrow")
                         
                         let rightEyebrow = observation.landmarks?.rightEyebrow
-                        self.convertPointsForFace(rightEyebrow, faceBoundingBox)
+                        self.convertPointsForFace(rightEyebrow, faceBoundingBox, "rightEyebrow")
                         
                         let noseCrest = observation.landmarks?.noseCrest
-                        self.convertPointsForFace(noseCrest, faceBoundingBox)
+                        self.convertPointsForFace(noseCrest, faceBoundingBox, "noseCrest")
                         
                         let outerLips = observation.landmarks?.outerLips
-                        self.convertPointsForFace(outerLips, faceBoundingBox)
-                    }
+                        self.convertPointsForFace(outerLips, faceBoundingBox, "outerLips")
+                        
+                        //use my model
+                        self.calculateEmotion(emotionText: self.csvText!)
+                        
+
+                        //csv 파일 생성
+                        //현재 사용 안함
+                        /*
+                        do {
+                            try self.csvText!.write(to: self.csvPath!, atomically: true, encoding: String.Encoding.utf8)
+                            print("Success Create")
+                        } catch {
+                            print("fail To create CSV File")
+                            print("\(error)")
+                        }
+                        */
+                   }
                 }
             }
         }
     }
     
-    func convertPointsForFace(_ landmark: VNFaceLandmarkRegion2D?, _ boundingBox: CGRect) {
+    func convertPointsForFace(_ landmark: VNFaceLandmarkRegion2D?, _ boundingBox: CGRect, _ thisType:String) {
+        var csvLine = thisType
+        
         if let points = landmark?.normalizedPoints, let _ = landmark?.pointCount {
             let faceLandmarkPoints = points.map { (point: CGPoint) -> (x: CGFloat, y: CGFloat) in
-                
                 //size.height - (self.origin.y * size.height + self.size.height * size.height)
                 // 바운딩 박스 설정
                 /*
@@ -392,13 +427,65 @@ class PlayViewController: NSViewController {
                 
                 let pointX = point.x * boundingBox.width + boundingBox.origin.x
                 let pointY = boundingBox.origin.y + boundingBox.height - (point.y * boundingBox.height)
+                csvLine.append(", \(pointX) * \(pointY)")
                 return (x: pointX, y: pointY)
             }
-            
+            self.csvText?.append(csvLine + "\n")
+
             DispatchQueue.main.async {
-                self.draw(points: faceLandmarkPoints)
+                //self.draw(points: faceLandmarkPoints)
             }
         }
+    }
+    
+    func calculateEmotion(emotionText : String) {
+        let df = emotionText.components(separatedBy: "\n")
+        var tempArray:[Double] = []
+        
+        let leftEye = shape(start: String(String(df[1]).split(separator: ",")[1]), end: String(String(df[1]).split(separator: ",")[4]), middleTop: String(String(df[1]).split(separator: ",")[3]), middleBottom: String(String(df[1]).split(separator: ",")[5]))
+        let rightEye = shape(start: String(String(df[2]).split(separator: ",")[1]), end: String(String(df[2]).split(separator: ",")[4]), middleTop: String(String(df[2]).split(separator: ",")[3]), middleBottom: String(String(df[2]).split(separator: ",")[5]))
+        let outerLip = shape(start: String(String(df[8]).split(separator: ",")[1]), end: String(String(df[8]).split(separator: ",")[8]), middleTop: String(String(df[8]).split(separator: ",")[4]), middleBottom: String(String(df[8]).split(separator: ",")[11]))
+        let leftEyeBrow = eyebrowShape(middle: String(String(df[5]).split(separator: ",")[3]), end: String(String(df[5]).split(separator: ",")[6]))
+        let rightEyeBrow = eyebrowShape(middle: String(String(df[6]).split(separator: ",")[3]), end: String(String(df[6]).split(separator: ",")[6]))
+        
+        tempArray.append(leftEye)
+        tempArray.append(rightEye)
+        tempArray.append(outerLip)
+        tempArray.append(leftEyeBrow)
+        tempArray.append(rightEyeBrow)
+        
+        //ML model 에 Array 넣을 때는 MLMultiArray 를 사용해야 함. 데이터를 넣을 수 있는 방법은 반복문 뿐.
+        let myMLArray = try? MLMultiArray.init(shape: [5], dataType: MLMultiArrayDataType.double)
+        
+        for i in 0...tempArray.count-1 {
+            myMLArray?[i] = NSNumber(value: tempArray[i])
+        }
+        //ML model 실행.
+        guard let myModelOutput = try? myModel.prediction(input1: myMLArray!) else {
+            fatalError("Unexpected runtime error.")
+        }
+        
+        print(myModelOutput.output1)
+        print(myModelOutput.classLabel)
+        self.csvText = ""
+
+    }
+    
+    func shape(start: String, end: String, middleTop : String, middleBottom:String) -> Double {
+        let startY:Double! = Double(start.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
+        let endY:Double! = Double(end.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
+        let bothEndY =  ( startY + endY ) / 2
+        let middleBottomY:Double! = Double(middleBottom.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
+        let middleTopY:Double! = Double(middleTop.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
+        return abs(bothEndY - middleBottomY)/abs(middleTopY - middleBottomY)
+    }
+    
+    func eyebrowShape(middle:String, end: String) -> Double{
+        let middleX:Double! = Double(middle.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[0])
+        let middleY:Double! = Double(middle.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
+        let endX:Double! = Double(end.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[0])
+        let endY:Double! = Double(end.trimmingCharacters(in: .whitespaces).components(separatedBy: " * ")[1])
+        return abs((middleY-endY)/(middleX-endX))
     }
     
     func draw(points: [(x: CGFloat, y: CGFloat)]) {
@@ -413,7 +500,6 @@ class PlayViewController: NSViewController {
         for i in 0..<points.count - 1 {
             //let point = CGPoint(x: points[i].x, y: points[i].y)
             let rect = CGRect(x: points[i].x, y: points[i].y, width: 0.3, height: 0.3)
-
             path.addEllipse(in: rect)
             //path.move(to: point)
         }
@@ -428,7 +514,6 @@ class PlayViewController: NSViewController {
         for i in 0...count {
             convertedPoints.append((CGFloat(points[i].x), CGFloat(points[i].y)))
         }
-        
         return convertedPoints
     }
 
